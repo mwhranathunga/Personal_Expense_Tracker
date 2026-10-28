@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </span>
+                Personal Expense Tracker
+            </a>
+            <span class="nav-label">Manage your money wisely</span>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="container">
+            <p class="eyebrow">YOUR FINANCES, SIMPLIFIED</p>
+            <h1>Financial Dashboard</h1>
+            <p class="subtitle">Keep track of your income and expenses in one place.</p>
+        </div>
+    </header>
+
+    <main class="container main">
+
+        <!-- Summary Cards -->
+        <section class="summary-grid">
+            <article class="summary-card income-card">
+                <div class="card-top">
+                    <span class="card-label">Total Income</span>
+                    <span class="card-icon income-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                    </span>
+                </div>
+                <h2 id="totalIncome">LKR 0.00</h2>
+                <p>Money received</p>
+            </article>
+
+            <article class="summary-card expense-card">
+                <div class="card-top">
+                    <span class="card-label">Total Expenses</span>
+                    <span class="card-icon expense-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 8v9H8"/></svg>
+                    </span>
+                </div>
+                <h2 id="totalExpenses">LKR 0.00</h2>
+                <p>Money spent</p>
+            </article>
+
+            <article class="summary-card balance-card">
+                <div class="card-top">
+                    <span class="card-label">Current Balance</span>
+                    <span class="card-icon balance-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2M3 10h18"/></svg>
+                    </span>
+                </div>
+                <h2 id="currentBalance">LKR 0.00</h2>
+                <p>Income minus expenses</p>
+            </article>
+        </section>
+
+        <!-- Transaction Form -->
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Add a Transaction</h2>
+                    <p>Record your income or expenses.</p>
+                </div>
+            </div>
+
+            <form id="transactionForm" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="type">Transaction Type</label>
+                        <select id="type" name="type">
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" name="description" placeholder="e.g. Monthly allowance" maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Amount (LKR)</label>
+                        <input type="number" id="amount" name="amount" placeholder="e.g. 25000" min="0.01" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" name="category">
+                            <option value="">Select a category</option>
+                            <option value="Allowance">Allowance</option>
+                            <option value="Salary">Salary</option>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Education">Education</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Transaction Date</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+                </div>
+
+                <p class="form-error" id="formError" role="alert"></p>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                    <button type="submit" class="btn btn-primary">+ Add Transaction</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Transaction History -->
+        <section class="panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Transaction History</h2>
+                    <p>Review and manage your transactions.</p>
+                </div>
+                <span id="transactionCount" class="count-badge">0 transactions</span>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-box">
+                    <label for="searchInput" class="visually-hidden">Search transactions</label>
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="search" id="searchInput" placeholder="Search by description or category">
+                </div>
+
+                <div class="filter-box">
+                    <label for="filterType">Filter by Type</label>
+                    <select id="filterType">
+                        <option value="all">All Transactions</option>
+                        <option value="income">Income Only</option>
+                        <option value="expense">Expenses Only</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th class="amount-column">Amount (LKR)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody"></tbody>
+                </table>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h6M9 3h6a2 2 0 0 1 2 2v1H7V5a2 2 0 0 1 2-2ZM7 6H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-1M9 13h6M9 17h4"/></svg>
+                    </div>
+                    <h3>No transactions found</h3>
+                    <p>Add your first transaction to see it here.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Personal Expense Tracker &copy; <span id="currentYear"></span> | Front-End Development Lab</p>
+            <p>Your data stays in your browser.</p>
+        </footer>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="scripts.js" defer></script>
+
+</body>
+</html>
